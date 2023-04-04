@@ -1,2 +1,4 @@
-# lezioni_calcolo_numerico
-Lezioni del corso di Calcolo Numerico - Laurea Triennale in Informatica, dipartimento di Matematica, università di Padova - tenuto dal professor Marco Vianello
+# Lezioni di Calcolo Numerico
+
+## Attenzione
+Le lezioni *sono state scritte dal professo Marco Vianello* ma, dal momento che sono state scritte a mano ho provveduto a riscriverle in un formato più leggibile, **aggiungento approfondimenti e chiarimenti** derivanti dalle lezioni svolte in classe nell'anno scolastico 2022/2023.
