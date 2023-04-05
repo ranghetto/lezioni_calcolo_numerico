@@ -143,3 +143,25 @@ Prima di dimostrare questa disuguaglianza, osserviamo che:
 > La successione $\{c_n\}$ e' limitata, infatti $|f''(z_n)| \leq \underset{x\in[c,d]}{\max}|f''(x)| = M_2$, applicando il teorema di Weierstrass sull'$\exists$ di $\max$ e $\min$ assoluti a $|f''(x)|\in C[c,d]$; d'altra parte, applicando lo steso teorema a $|f'(x)|\in C[c,d]$ abbiamo che $m_1 = \underset{x\in[c,d]}{\min}|f'(x)|\gt0$ (perche' $\exists\;\bar{x}: m_1 = |f'(\bar{x})|$ e $f'(\bar{x})\neq0$).
 > Otteniamo quindi $|f'(x_n)|\geq m_1 \gt0$ e infine $c_n\leq\dfrac{1}{2}\dfrac{M_2}{m_1} = c$
 
+La relazione di tipo *quadratico* $e_{n+1}\leq c\cdot e_n^2$ e' la chiave per spiegare la velocita' di convergenza del metodo di Newton, perche' ci dice in sostanza che l'errore al passo $n+1$ e' maggiorato da una quantita' *proporzionale* (con costante di porporzionalita' non dipendente da $n$) al *quadrato delll'errore al passo* $n$.
+Si noti la notevole differenza col metodo di bisezione, dove la relazione tra $e_{n+1}$ ed $e_n$ e' lineare ($e_{n+1}\approx\dfrac{1}{2}e_n$, in media).
+
+Per apprezzare l'effetto della relazione quadratica, prima di tutto osserviamo che
+$$c\cdot e_{n+1}\leq c\cdot c \cdot e_n^2=(c\cdot e_n)^2$$
+Ora, fissiamo $\Theta\in(0,1)$: siccome abbiamo assunto che il metodo sia convergente, $ce_n\to0$, $n\to\infty$ e quindi $\exists\;\bar{n}: ce_n\leq\Theta\;\forall\;n\geq\bar{n}$ (con $\bar{n}$ dipendente da $\Theta$).
+Applicando la disuguaglianza $ce_{n+1}\leq(ce_n)^2$ per $n\geq\bar{n}$:
+$$\begin{array}{c}
+ce_{\bar{n}+1} \leq (ce_\bar{n})^2 \leq \Theta^2\\
+ce_{\bar{n}+2} \leq (ce_\bar{n+1})^2 \leq (\Theta^2)^2 = \Theta^4 \\
+ce_{\bar{n}+3} \leq (ce_\bar{n+2})^2 \leq (\Theta^4)^2 = \Theta^8 \\
+\vdots \\
+ce_{\bar{n}+k} \leq (ce_\bar{n+k-1})^2 \leq (\Theta^{2^{k-1}})^2 = \Theta^{2^k} \\
+\end{array}$$
+Adesso, solo per fissare le idee nel confronto col metodo di bisezione, prendiamo $\Theta =\dfrac{1}{2}$.
+Otteniamo, dopo $k$ iterazioni di Newton a partire da $\bar{n}$
+$$e_{\bar{n}+k}^{\text{Newton}} \leq \dfrac{1}{c}\Big(\dfrac{1}{2}\Big)^{2^k}$$
+mentre con $k$ iterazioni del metodo di bisezione
+$$e_k^{bisezione}\leq\approx\Big(\dfrac{1}{2}\Big)^ke_0^{\text{bisezione}}$$
+Il confronto sulle $k$ iterazioni va fatto guardando gli esponenti di $\dfrac{1}{2}$: nella bisezione l'esponente e' $k$ (cioe' cresce linearmente in $k$), con Newton invece l'esponente e' $2^k$ (cioe' cresce *esponenzialmente* in $k$).
+Ad esempio per $k=6$ nella stima per la bisezione compare $\Big(\dfrac{1}{2}\Big)^6 = \dfrac{1}{64}\approx1.6\cdot 10^{-2}$ mentre nella stima per Newton $\Big(\dfrac{1}{2}\Big)^{2^6}=\Big(\dfrac{1}{2}\Big)^{64}\approx5\cdot10^{-20}$
+Ribadiamo che $\Theta=\dfrac{1}{2}$ e' stato scelto arbitrariamente solo per fare un confronto diretto col metodo di bisezione, dove il fattore di riduzione $\dfrac{1}{2}$ e' intrinseco nella costruzione; nel caso del metodo di Newton (per zeri semplici) possiamo dire sostanzialmente che non appena $ce_n\lt1$ si innesca una riduzione rapidissima dell'errore, di tipo *"quadrati successivi"* che viene detto **convergenza quadratica**.
