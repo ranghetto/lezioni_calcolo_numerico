@@ -29,7 +29,7 @@ A fronte di $\epsilon_x, \epsilon_y \leq \epsilon_M = \dfrac{10^{-3}}{2}$ abbiam
 Qui il problema sta nella sottrazione tra numeri vicini, visto che $x+y=4\cdot10^{-5}$ ma $|x|,|y|\approx10^{-1}$.
 Infatti se calcoliamo i pesi
 $$w_1, w_2 = \dfrac{|x|}{|x+y|} \approx \dfrac{10^{-1}}{4\cdot10^{-5}} = \dfrac{10^4}{4} = 2500$$
-Questi fattori di amplificatione degli errori sui dati sono dell'ordine di $10^3$ e spiegano come si arrivi ad un errore finale $\gt 100\%$, che rende nella pratica inaccettabile il risultato.
+Questi fattori di amplificazione degli errori sui dati sono dell'ordine di $10^3$ e spiegano come si arrivi ad un errore finale $\gt 100\%$, che rende nella pratica inaccettabile il risultato.
 In questo caso i fattori di amplificazione sono enormi, ma non comunque $\gt \dfrac{1}{\epsilon_M}$.
 Osserviamo che sarebbe bastata una cifra di mantissa in più per avere il risultato esatto, dal momento che non si necessitava più di fare arrotondamenti.
 Questo apre la strada all'analisi del prossimo esempio, un pò più sofisticato.
@@ -50,18 +50,18 @@ $$II = a\oplus(b\oplus c) = 0.3371258\cdot10^{-4} \oplus0.61800000\cdot10^{-3} =
 
 Quindi $I \neq II$; inoltre si verifica, ad esempio utilizzando Matlab, che utilizza 16 cifre decimali, che $II = fl^8(a+b+c)$. Cioè il risultato $II$ è il meglio che si può ottenere in questa aritmetica floating-point, mentre l'errore relativo di $I$ è 
 $$\dfrac{|I-(a+b+c)|}{|a+b+c|} \approx \dfrac{4\cdot10^{-7}}{0.6\cdot10^{-3}} = \dfrac{2}{3} \cdot 10^{-3} \approx 0.07\%$$
-Qui riusciamo subito a spiegare la perdita di precisione di 4 ordini di grandezza rispetto a $\epsilon_M = \dfrac{10^{-7}}{2}$, calcolando i pesi $w_1$ e $w_2$ associati alla sottrazione $\underbrace{(a+b)}_{=x}+\underbrace{c}_{=y}$, visto che $x$ e $y$ sono vicini in termini relativi, si noti che hanno le prima 4 cifre significative coincidenti
+Qui riusciamo subito a spiegare la perdita di precisione di 4 ordini di grandezza rispetto a $\epsilon_M = \dfrac{10^{-7}}{2}$, calcolando i pesi $w_1$ e $w_2$ associati alla sottrazione $\underbrace{(a+b)}_{=x}+\underbrace{c}_{=y}$, visto che $x$ e $y$ sono vicini in termini relativi, si noti che hanno le prime 4 cifre significative coincidenti
 $$w_1 = \dfrac{|x|}{|x+y|} = \dfrac{|a+b|}{|a+b+c|} \approx \dfrac{0.3\cdot10^2}{0.6\cdot10^{-3}} = \dfrac{1}{2}\cdot10^5 = 50000$$
 >Si osservi che in queste stime abbiamo lavorato con una sola cifra significativa, sia con gli erori sia con i pesi, perchè di queste quantità non ci interessa il valore accurato ma solo l'ordine di grandezza.
 
 Naturalmente, anche nel caso $II$ c'è una sottrazione che viene fatta subito, ovvero $b+c$, quindi posto $x=b, y=c$ si ha
 $$w_1 = \dfrac{|b|}{|b+c|} = \dfrac{0.3\cdot10^2}{0.6\cdot10^{-3}} = 50000$$
 Ma allora perché con l'espressione di calcolo $II$ non c'è perdita di precisione?
-La spiegazione è sttile e sta nel fatto che i numeri $a, b, c$ entrano con 8 cifre significative e non occorre arrotondarli, cioè $\epsilon_a = \epsilon_b = \epsilon_c = 0$.
+La spiegazione è sottile e sta nel fatto che i numeri $a, b, c$ entrano con 8 cifre significative e non occorre arrotondarli, cioè $\epsilon_a = \epsilon_b = \epsilon_c = 0$.
 Quindi la sottrazione $b+c$ non perde precisione. Invece nell'espressione di calcolo $I$ la sottrazione avviene con uno dei due dati arrotondato, ovvero $a+b$, che è un'addizione il cui risultato viene comunque arrotondato perché ha più di 8 cifre significative e quell'errore di arrotondamento viene amplifcato dal peso $w_1$.
-Osserviamo che ii una sottrazione instabile *basta che uno dei due dati sia affetto da errore* per vedere la perdita di precisione.
+Osserviamo che in una sottrazione instabile *basta che uno dei due dati sia affetto da errore* per vedere la perdita di precisione.
 
-Siamo in grado a questo punto di discutere l'esempio portato alla fine del capitolo 4, risponderemo alla domanda: *perché $f(10^{-15})$ in Matlab ha un errore $\gt 11\%$ e $f(2^{-50})$ è esatto?*
+Siamo in grado a questo punto di discutere l'esempio portato alla fine del capitolo 4, risponderemo alla domanda: *perché $f(10^{-15})$ in Matlab ha un errore $\gt 11\%$ e $f(2^{-50})$ è esatto, pur essendo $10^{-15}=2^{-50}$?*
 
 ### Esempio 3
 
