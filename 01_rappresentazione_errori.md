@@ -28,7 +28,7 @@ Questo vale per tutte le basi.
 - Se il numero di cifre della parte frazionaria e' finito allora $x \in \mathbb{Q}$;
 - dalla precedente osservazione otteniamo che se $x \in \mathbb{R}$ (e.g. $\sqrt{2},\pi,\dots$) necessariamente ha $\infty$ cifre della parte frazionaria, $\forall\; b \gt 1$;
 - un numero in una base, con infinite cifre frazionarie, protrebbe avere un numero finito di cifre frazionarie in un'altra base;
-- per scrivere un numero nel calcolaroe ho necessariamente di una parte frazionaria finita.
+- per scrivere un numero nel calcolatore ho necessariamente bisogno di una parte frazionaria finita.
 
 Proprio questo punto e' quello di interesse, ci sono infatti due modi per ottenere un numero finito di cifre: troncando o approssimando quel numero.
 Quello che ci interessa in particolare e' capire che errore commettiamo quando effettuiamo una di queste due operazioni.
@@ -36,11 +36,11 @@ Quello che ci interessa in particolare e' capire che errore commettiamo quando e
 ### 1.2. Troncamento
 
 Dato un numero $x$ definiamone una suo *troncamento* alla $n$-esima cifra decimale:
-$$\tilde{x}_n = \text{sgn}(x)\cdot\Bigg\{\sum_{j=0}^{m}c_j b^j+ \sum_{j=0}^{n}c_{-j}b^{-j}\Bigg\}$$
-allora $\text{errore-tr}(n) = |x-\tilde{x}| = \sum_{j=n+1}^{\infty}c_{-j}b^{-j}$ ossia il *resto*:
-$$\leq (b-1)\sum_{j=n+1}^{\infty}b^{-j} = (b-1)\sum_{j=0}^{\infty}b^{-j} - \sum_{j=0}^{n}b^{-j} =$$
+$$\tilde{x}_n = \text{sgn}(x)\cdot\Bigg\{\sum_{j=0}^{m}c_j b^j+ \sum_{j=1}^{n}c_{-j}b^{-j}\Bigg\}$$
+allora $\text{errore-tr}(n) = |x-\tilde{x}| = \sum_{j=n+1}^{\infty}c_{-j}b^{-j}$ ossia il *resto*, dal momento che $c_{-j}\leq b-1$ si ha:
+$$\sum_{j=n+1}^{\infty}c_{-j}b^{-j}\leq(b-1)\sum_{j=n+1}^{\infty}b^{-j} = (b-1)\sum_{j=0}^{\infty}b^{-j} - \sum_{j=0}^{n}b^{-j} =$$
 $$= (b-1)\cdot\dfrac{1}{1-\frac{1}{b}} - \frac{1-b^{-(n+1)}}{1-\frac{1}{b}} = (b-1)\cdot\dfrac{b^{-(n+1)}}{\frac{b-1}{b}} = (b-1)\cdot\frac{b^{-n}}{b-1} = \frac{1}{b^n}.$$
-Alla fine otteniamo che $|x - \tilde{x}| \leq \frac{1}{b^n} \lt \epsilon$ dove $\epsilon$ e' un fattore di *tolleranza* dell'errore, di conseguenza se vogliamo che il nostro errore si $\lt \epsilon$ il nostro $n$ dovra' essere $\gt \log_b\epsilon$.
+Alla fine otteniamo che $|x - \tilde{x}| \leq \frac{1}{b^n} \lt \epsilon$ dove $\epsilon$ e' un fattore di *tolleranza* dell'errore, di conseguenza se vogliamo che il nostro errore sia $\lt \epsilon$ il nostro $n$ dovra' essere $\gt \log_b\epsilon$.
 
 ### 1.3. Arrotondamento
 
