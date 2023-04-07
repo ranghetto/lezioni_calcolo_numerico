@@ -68,7 +68,7 @@ Infatti due reali-macchina consecutivi differiscono di 1 nella $t$-esima cifra d
 $$\text{mantissa}(\mu_{succ})- \text{mantissa}(\mu) = 1\cdot b^{-t}$$
 $$\text{e}\quad \mu_{succ}-\mu = b^{-t} \cdot b^p = b^{p-t}$$
 La distanza assoluta è quindi variabile con $p$, cioè con l'ordine di grandezza del numero in base $b$. Questa distanza varia quindi di un certo fattore dipendente da $b$ quando si passa per una potenza della base.
-Facciamo un esempio con $b=10$ e $t=2$: la domanda che possiamo farci ad esempio è: chi èi l reale-macchina successivo ad $1$? Pensando a 2 cifre decimali, verrebbe da rispondere $1.01$, ma non è così, perché $1.01=(0.101)\cdot10^1$ ha 3 cifre di mantissa e in questo esempio $t=2$. Invece il reale-macchina successivo ad $1$ è $(0.11)\cdot 10^1=1.1$.
+Facciamo un esempio con $b=10$ e $t=2$: la domanda che possiamo farci ad esempio è: chi è il reale-macchina successivo ad $1$? Pensando a 2 cifre decimali, verrebbe da rispondere $1.01$, ma non è così, perché $1.01=(0.101)\cdot10^1$ ha 3 cifre di mantissa e in questo esempio $t=2$. Invece il reale-macchina successivo ad $1$ è $(0.11)\cdot 10^1=1.1$.
 
 ![[img004.jpg]]
 
@@ -93,7 +93,7 @@ Nel primo caso abbiamo una sola cifra di mantissa, che corrisponde al minimo pos
 
 ![[img008.jpg]]
 
-Vediamo che si parte dall'ordine di grandezza dei centesimi con $\min\mathbb{F}^+=0.1\cdot 10^-1 = 0.01$, notando anche che tra i centesimi non ci sono reali-macchina perché c'è una sola cifra di mantissa, passando poi ai decimi, poi alle unità sempre senza reali-macchina intermedi, fino a $\max\mathbb{F}^+ = (0.9)\cdot 10^1 = 9$.
+Vediamo che si parte dall'ordine di grandezza dei centesimi con $\min\mathbb{F}^+=0.1\cdot 10^{-1} = 0.01$, notando anche che tra i centesimi non ci sono reali-macchina perché c'è una sola cifra di mantissa, passando poi ai decimi, poi alle unità sempre senza reali-macchina intermedi, fino a $\max\mathbb{F}^+ = (0.9)\cdot 10^1 = 9$.
 La precisione di macchina è $\epsilon_M = \dfrac{10^{1-t}}{2} = \dfrac{10^{1-1}}{2} = \dfrac{1}{2} = 50\%$.
 Si trata di un sistema floating-point molto povero, perché c'è una sola cifra di mantissa e un'estensione molto limitata dal piccolo range di esponenti.
 

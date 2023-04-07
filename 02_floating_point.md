@@ -33,6 +33,7 @@ $$\text{errore relativo}=\dfrac{a-\tilde{a}}{|a|}, a\neq0.$$
 Esso e' l'errore piu' importante in campo sperimentale e nelle applicazioni pratiche e di solito di esprime in percentuale. Scopriremo che l'errore relativo non dipende piu' da $p$.
 
 Il *massimo errore relativo*, espresso in percentuale, di arrotondamento a $n$ cifre in base $b$ e' detto *precisione di macchina* e si indica con $${\epsilon}_M = \frac{|x -\text{fl}^t(x)|}{|x|} \leq \frac{b^{p-t}}{2}\cdot b^{1-p} = \frac{b^{1-t}}{2}.$$
+Per farlo abbiamo usato il fatto che $|x|\geq b^{-1}\cdot b^p = b^{p-1}$.
 Come vediamo esso dipende solamente da $b$ e da $t$, rispettivamente la base e il numero di cifre di mantissa.
 
 >Per esempio, secondo lo standard *IEEE* per la rappresentazione dei numeri floating point a 64 bit, 53 bit sono dedicati alla mantissa quindi $\epsilon_M = 2^{-53}$.
