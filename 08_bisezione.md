@@ -84,7 +84,7 @@ Quella che stiamo usando qui in realta' e' una caratterizzazione della continuit
 Nel nostro caso $f(\xi)=0$ quindi $f(x_n)\to0, n\to\infty$ e anche $|f(x_n)|\to0,n\to\infty$.
 La quantita' $|f(x_n)|$ si chiama **residuo** perche' dice quanto "resta" ad $f$ per annullarsi.
 
-Viene allora spontante la seguente domanda: siccome $f(x_n)\to0$, $n\to\infty$, possiamo arrestare il processo di calcolo quando il residuo $|f(x_n)|$ e' piccolo? In altre parole
+Viene allora spontanea la seguente domanda: siccome $f(x_n)\to0$, $n\to\infty$, possiamo arrestare il processo di calcolo quando il residuo $|f(x_n)|$ e' piccolo? In altre parole
 $$|f(x_n)|\leq\epsilon \overset{?}{\implies} e_n\leq\epsilon$$
 La risposta e' **NO** perche', come vedremo subito, la grandezza del residuo non e' in se' un buon indicatore dell'errore, ma va opportunamente "pesata": per capirlo consideriamo i seguenti grafici
 
@@ -92,14 +92,14 @@ La risposta e' **NO** perche', come vedremo subito, la grandezza del residuo non
 
 Nel primo caso il residuo e' piccolo ma l'errore e' grande, cioe' il residuo e' una *sottostima* dell'errore. Nel secondo caso il residuo e' grande ma l'errore e' piccolo, cioe' il residuo e' una *sovrastima* dell'errore.
 
-E' importante osservare che una sottostima dell'errore in pratica e' la cosa piu' *pericolosa*, perche' induce a fermare le iterazioni quando $x_n$ non e' ancora enll'intorno del limite individuato dalla tolleranza: si pensa di aver approssimato la quantita' limita a meno della tolleranza e invece *l'errore e' piu' grande della tolleranza*.
+E' importante osservare che una sottostima dell'errore in pratica e' la cosa piu' *pericolosa*, perche' induce a fermare le iterazioni quando $x_n$ non e' ancora nell'intorno del limite individuato dalla tolleranza: si pensa di aver approssimato la quantita' limite a meno della tolleranza e invece *l'errore e' piu' grande della tolleranza*.
 
 Questo puo' chiaramente portare a conseguenze gravi in applicazioni in cui il rispetto della tolleranza e' decisivo.
 D'altra parte, una sovrastima, pur essendo meno grave, ha come conseguenza un aumento del numero di iterazioni rispetto a quello che sarebbe sufficiente e quindi un incremento del costo computazionale.
 Nei due grafici disegnati sopra si nota che il residuo e' una sottostima dell'errore quando la funzione e' "piatta", cioe' la variazione e' lenta in un intorno dello zero, mentre e' una sovrastima quando la funzione e' "ripida" cioe' ha una variazione veloce in un intorno dello zero.
 
 Si capisce allora che il residuo va in qualche modo "pesato" per tener conto della velocita' di variazione: se $f$ e' derivabile, bisogna quindi tenere conto della grandezza della derivata, che per definizione misura la velocita' di variazione di una funzione.
-Per fare questo in modo rigoroso possiamo ricorrere a un teroema chiave del calcolo differenziale, il teroema del **valor medio** (detto anche teorema di Lagrange).
+Per fare questo in modo rigoroso possiamo ricorrere a un teorema chiave del calcolo differenziale, il teorema del **valor medio** (detto anche teorema di Lagrange).
 
 > **Teorema** (del valor medio)
 > Sia $f\in C[\alpha,\beta]$ derivabile in $(\alpha, \beta) \implies \exists\;z\in(\alpha, \beta)\colon \dfrac{f(\beta)-f(\alpha)}{\beta-\alpha} = f'(z)$
@@ -123,9 +123,9 @@ Prima di domostrare la stima, osserviamo che:
 
 Infatti se $x_n\in[c,d], \forall\;n\gt n_0$ allora $\xi=\lim x_n \in [c,d]$ perche' $[c,d]$ e' chiuso e quindi contiene i limiti delle successioni li' contenute, quindi $f'(\xi)\neq0$. Viceversa, se $f'(\xi)\neq0$ siccome $f'$ e' continua, per il teorema della *permanenza del segno* $$\exists\;\delta\gt0\colon f'(x)\neq 0 \;\forall\;x\in[\xi-\delta, \xi+\delta]=[c,d]$$e siccome $x_n\to\xi, n\to\infty$ allora $\exists\;n_0$ tale che $|x_n-\xi|\leq\delta\;\forall\;n\geq n_0$. 
 Si noti che $f'(z_n)\neq0, n\geq n_0$ perche' $z_n \in \text{int}(x_n, \xi)\subset[c,d]$. 
-E' importante osservare che la rappresentazione dell'errore come residuo pesato non vale solo per il metodo di bisezione, ma per ogni motodo convergente ad uno zero semplice se $f\in C^1$ (applicheremo infatti questo risultato piu' avanti col metodo di Newton);
+E' importante osservare che la rappresentazione dell'errore come residuo pesato non vale solo per il metodo di bisezione, ma per ogni metodo convergente ad uno zero semplice se $f\in C^1$ (applicheremo infatti questo risultato piu' avanti col metodo di Newton);
 
-4. dalla rappresentazione siamo in grado di ricavare delle *stime a posteriori* dell'errore. A posteriori perche' si utilizza il residuo che e' calcolabile solo a posteriori dopo aver prodotto $x_n$ nel processo di calcolo.
+3. dalla rappresentazione siamo in grado di ricavare delle *stime a posteriori* dell'errore. A posteriori perche' si utilizza il residuo che e' calcolabile solo a posteriori dopo aver prodotto $x_n$ nel processo di calcolo.
 
 > **Dimostrazione** della rappresentazione
 > Utiliziamo il teorema del valor medio, supponendo che $x_n \gt \xi$ (l'altro caso e' del tutto analogo), con $\alpha=\xi, \beta=x_n$.
@@ -136,12 +136,12 @@ E' importante osservare che la rappresentazione dell'errore come residuo pesato 
 Ora, siccome il teorema del valor medio non ci dice chi sia $z_n$, ma solo che esiste almeno un $z_n$ in $\text{int}(x_n,\xi)$, cerchiamo di ricavare delle stime "pratiche" dell'errore utilizzando il residuo opportunamente pesato:
 
 1. se e' noto che $f'(x)\geq k \gt 0 \;\forall\;x\in[a,b]$ (ma basta $\forall\;x\in[c,d]$) allora $e_n=\dfrac{|f(x_n)|}{|f'(z_n)|}\leq \dfrac{f(x_n)}{k}$;
-2. se $f'$ e' nota o calcolabile, siccome $z_n\to\xi, n\to\infty$ per il teorema dei due carabinieri visto che $z_n$ sta fra $\xi$ e $x_n$, per la continuita' di $f'$ si ha che $|f'(x_n)|, |f'(z_n)| \to |f'(\xi)|\neq0, n\to\infty$.
+2. se $f'$ e' nota o calcolabile, siccome $z_n\to\xi, n\to\infty$ per il teorema dei due carabinieri visto che $z_n$ sta fra $\xi$ e $x_n$, per la continuita' di $f'$ si ha che $|f'(x_n)|, |f'(z_n)| \to |f'(\xi)|\neq0, n\to\infty$.``
 
 Quindi, almeno per $n$ abbastanza grande, $|f'(x_n)|$ e $|f'(z_n)|$ saranno entrambi dell'ordine di grandezza di $|f'(\xi)|$ (notiamo che nel residuo pesato quello che ci interessa e' essenzialmente l'*ordine di grandezza del peso* $f'(z_n)$).
 Abbiamo quindi una **stima empirica** $e_n = |x_n-\xi| \approx \dfrac{|f(x_n)|}{|f'(x_n)|}$ valida almeno per $n\geq n_0$, dove $n_0$ corrisponde ad un controllo empirico che l'ordine di grandezza di $|f'(x_n)|$ si stia "stabilizzando", cioe valga $\Bigg|\dfrac{|f'(x_n)|}{|f'(x_{n-1})|}-1\Bigg| \leq \delta$.
 Ad esempio con $\delta = 10^{-1}$ o $10^{-2}$ ($\dfrac{|f'(x_n)|}{|f'(x_{n-1})|}\to1, n\to\infty$).
-Quindi ha senso controllare quando il rapporto si sta stabilizzando intorno a $1$, tenendo presente che questo e' un criterio sensato ma non completamente rigoroso, diciamo una "linea guida" per l'utilizzo del peso.
+Quindi ha senso controllare quando il rapporto si sta stabilizzando intorno a $1$, tenendo presente che questo e' un criterio sensato ma non completamente rigoroso, diciamo una "linea guida" per l'utilizzo del peso;
 
 3. se $f'$ non e' nota esplicitamente, va in qualche modo approssimata.
 
@@ -155,7 +155,7 @@ Detto $k_n$ il peso calcolato con uno degli approcci 1, 2 o 3, siamo allora in g
 $$\min\Bigg\{\dfrac{b-a}{2^{n+1}},\dfrac{|f(x_n)|}{k_n}\Bigg\}\le \epsilon$$
 Possiamo a questo punto fare alcune considerazioni di carattere computazionale:
 
-- il metodo di bisezione funziona con richieste analitiche e computazionali minime
+- il metodo di bisezione funziona con richieste analitiche e computazionali minime;
 
 La versione base con la stima a priori chiede solo che siano soddisfatte le ipotesi del teorema degli zeri (continuita' e cambio di segno agli estremi) e unicamente la possibilita' di calcolare correttamente il segno di $f(x_n)$ (per cui e' sufficiente un errore relativo $\lt100\%$ su $f(x_n)$).
 

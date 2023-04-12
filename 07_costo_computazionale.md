@@ -10,14 +10,14 @@ $$\underbrace{\text{ERRORE}(n)}_{e_n = |x_n-l|} \;\;\tilde{\le}\;\; \text{STIMA}
 dove si e' dimostrato teoricamente che $x_n \to l, n\to\infty$.
 
 ### Stabilita'
-In tutti gli algoritmi numerici, anche quelli che fanno a priori un numero finito di passi (come alcuni algoritmi dell'algebra lineare, ad esempio il metodo di eliminazione gaussiana), vengono introdotti errori furante il processo di calcolo, a partire dagli inevitabili errorei di arrotondamento, ed errori di misura dei dati, ad errori dovuti ad un algoritmo secondario che fornisce all'algoritmo primario dei risultati approssimati da elaborare (ad esempio un algoritmo che approssima uno zero di una funzione che a sua volta viene approssimata tramite uno sviluppo in serie).
+In tutti gli algoritmi numerici, anche quelli che fanno a priori un numero finito di passi (come alcuni algoritmi dell'algebra lineare, ad esempio il metodo di eliminazione gaussiana), vengono introdotti errori durante il processo di calcolo, a partire dagli inevitabili errori di arrotondamento, ed errori di misura dei dati, ad errori dovuti ad un algoritmo secondario che fornisce all'algoritmo primario dei risultati approssimati da elaborare (ad esempio un algoritmo che approssima uno zero di una funzione che a sua volta viene approssimata tramite uno sviluppo in serie).
 
 Come abbiamo visto gia' con i vari esempi, cerchiamo di evitare algoritmi che propagano male gli errori amplificandoli, cioe' cerchiamo algoritmi che oltre ad essere **convergenti** siano anche **stabili** (si pensi alla successione di Archimede per $\pi$ nella versione instabile che abbiamo poi stabilizzato).
 
-Ma accanto a questi due concetti, ce n'e' un terzo che ci sice quando un algoritmo di approssimazione e' ben utilizzabile in pratica, ed e' il concetto di:
+Ma accanto a questi due concetti, ce n'e' un terzo che ci dice quando un algoritmo di approssimazione e' ben utilizzabile in pratica, ed e' il concetto di:
 
 ### Efficienza
-Tra i vari algoritmi che risolvono un problema, siamo interessati a queleli che hanno un basso **costo computazionale** (ovviamente a parita' di errore, visto che in questo corso trattiamo algoritmi numerici cioe' algoritmi che forniscono non un risultato esatto ma un risultato approssimato a meno di una certa tolleranza).
+Tra i vari algoritmi che risolvono un problema, siamo interessati a quelli che hanno un basso **costo computazionale** (ovviamente a parita' di errore, visto che in questo corso trattiamo algoritmi numerici cioe' algoritmi che forniscono non un risultato esatto ma un risultato approssimato a meno di una certa tolleranza).
 
 Si pensi ad esempio, per fissare le idee, all'algoritmo di Archimede per il calcolo di $\pi$ che ha chiaramente a parita' di errore un costo molto piu' basso dell'algoritmo basato sulla serie armonica, visto che la convergenza e' molto piu' rapida.
 
@@ -38,10 +38,10 @@ Per capire l'effetto dei flussi di dati fra le diverse zone di memoria del compu
 
 Come e' noto, la velocita' di scambio dati con la memoria centrale (accesso veloce) puo' essere maggiore di vari ordini di grandezza rispetto allo scambio dati con l'hard-disk o altre memoria di massa.
 Conviene quindi implementare gli algoritmi che lavorano su masse di dati e hanno bisogno delle memoria ad accesso piu' lento, minimizzando i flussi di dati, come mostriamo nel prossimo esempio.
-Supponiamo di dover fare il prodotto di due matrici $A,B \in \mathbb{R}^{n\cdot m}$, con il vincolo che nella memroia centrale si puo' memorizzare solo una matrice e qualche vettore di dimensione $n$, ma non due matrici. Chiamiamo come spesso si fa in letteratura *FLOAT* un reale-macchina.
+Supponiamo di dover fare il prodotto di due matrici $A,B \in \mathbb{R}^{n\cdot m}$, con il vincolo che nella memoria centrale si puo' memorizzare solo una matrice e qualche vettore di dimensione $n$, ma non due matrici. Chiamiamo come spesso si fa in letteratura *FLOAT* un reale-macchina.
 
 La situazione descrita non e' irrealistica: con una RAM di *8 Gbytes* possiamo memorizzare $\dfrac{8\cdot 10^9}{8} = 10^9$ *floats*, cioe' un miliardo di floats a $64 \text{bits} = 8 \text{bytes} (1 \text{byte} = 8 \text{bit}$).
-Quindi se $n = 30000$, ogni matrice occupa $n^2 = 9\cdot 10^8$ floats e nella RAM non ci stanno entrambe le matrici $A$ e $B$, una dlle due, ad esempio $B$ deve essere memoriazzata nell'hard-disk, cosi' come la matrice prodotto $C = AB$.
+Quindi se $n = 30000$, ogni matrice occupa $n^2 = 9\cdot 10^8$ floats e nella RAM non ci stanno entrambe le matrici $A$ e $B$, una delle due, ad esempio $B$ deve essere memorizzata nell'hard-disk, cosi' come la matrice prodotto $C = AB$.
 
 Ricordiamo che $c_{ij} = \sum_{k=1}^{n}a_{ik}\cdot b_{kj}$ cioe' $c_{i,j}$ e' il prodotto della *riga* $i$ di $A$ con la *colonna* $j$ di $B$, $R_i(A)\cdot C_j(B)$, e' chiaro che il costo del calcolo misurato in flops e' $\approx 2\cdot n^3$, visto che vanno calcolati $n^2$ prodotti riga-colonna e ciascuno costa $n$ prodotti e $n-1$ somme algebriche, cioe' $2n-1$ flops.
 
@@ -58,15 +58,15 @@ $$A \cdot \begin{bmatrix}u_1\\u_2\\\vdots\\u_n\end{bmatrix} = \sum_{j=1}^{n}u_j\
 In questo modo ogni colonna di $B$ viene spostata una volta sola, mentre nella costruzione (molto inefficiente) di $C$ per righe per calcolare ogni riga di $C$ bisognava spostare tutta la matrice $B$.
 Il flusso di dati si riduce quindi a $2n$ floats per colonna di $C$ e quindi in totale $2n^2$ invece di $n^3+n^2$ floats.
 
-Il guadagno in termini di flussi di dati e' evidente, anche se il numeri di flops resta ovviamente lo stesso cioe' $\approx 2n^3$.
+Il guadagno in termini di flussi di dati e' evidente, anche se il numero di flops resta ovviamente lo stesso cioe' $\approx 2n^3$.
 Nel seguito non ci occuperemo di algoritmi che elaborano grandi masse di dati, ma faremo esempi di confonto di algoritmi che risolvono lo stesso problema con costi computazionali diversi, usando $c_n = \text{\# flops}$ come parametro per misurare il costo computazionale (in funzione di un parametro $n$ che misura la "dimensione" del problema).
 
 ### Esempio 1: calcolo del valore di un polinomio
 
-Sia $p(x) = a_0 + a_1x + \cdots + a_nx^n$ un polinomio di grado $n$, quanto costa calcoalre il valore di $p$ in un punto $x$?
+Sia $p(x) = a_0 + a_1x + \cdots + a_nx^n$ un polinomio di grado $n$, quanto costa calcolare il valore di $p$ in un punto $x$?
 Il primo algoritmo di calcolo che viene in mente e'
 $$p(x) = \underbrace{\underbrace{\underbrace{\underbrace{a_0} + a_1x} + a_2x^2} + \cdots + a_nx^n}$$
-cioe sommare successivamente i monomi dal grado $0$ al grado $n$ cosi' ad ogni passo si tratta di fare due moltiplicazioni (una per $x^k = x\cdot x^{k-1}$ e una per $a_k\cdot x^k$) e una somma lagebrica ( somma del nuovo monomio alla somma precedente $S_k = a_kx^k + S_{k-1}, S_{k-1} = \sum_{j=0}^{k-1}a_jx^j, k=1,2,\dots,n$) quindi il costo totale e' $c_n^{(1)} = 3n$ flops.
+cioe sommare successivamente i monomi dal grado $0$ al grado $n$ cosi' ad ogni passo si tratta di fare due moltiplicazioni (una per $x^k = x\cdot x^{k-1}$ e una per $a_k\cdot x^k$) e una somma algebrica (somma del nuovo monomio alla somma precedente $S_k = a_kx^k + S_{k-1}, S_{k-1} = \sum_{j=0}^{k-1}a_jx^j, k=1,2,\dots,n$) quindi il costo totale e' $c_n^{(1)} = 3n$ flops.
 
 Ma questo non e' l'unico modo di procedere.
 
@@ -111,9 +111,9 @@ $$a^7 = a^{1\cdot2^0+1\cdot2^1 + 1 \cdot 2^2} = a\cdot a^2 \cdot a^4$$
 $$a^{12} = a^{0\cdot2^0+0\cdot2^1 + 1 \cdot 2^2+1\cdot2^3} = a^0 \cdot a^0\cdot a^4 \cdot a^8$$
 Quante moltiplicazioni stiamo facendo? Ci sono $m = [\log_2(n)]$ moltiplicazioni per calcolare $a^2, a^4, \dots, a^{2^m}$ e nel prodotto $\prod_{j=0}^{m}$ ci sono poi un numero di moltiplicazioni uguale al numero di cifre $1$ nella codifica binaria, meno uno (le cifre $0$ non contano perche' $a_0 = 1$).
 Quindi il totale e' $c_n^{(2)} = m+(\#\{1\}-1)$.
-Siccome $\#\{1\}$ e' al massimo $m+1$ e questo accade per $n=2^k-1$ (ad esempio $15= 2^4-1=(1111)_2$) in cui la codifica binaria di $n$ e' una sequanza di $1$, si ha che 
+Siccome $\#\{1\}$ e' al massimo $m+1$ e questo accade per $n=2^k-1$ (ad esempio $15= 2^4-1=(1111)_2$) in cui la codifica binaria di $n$ e' una sequenza di $1$, si ha che 
 $$\max c_n^{(2)} = m+m = 2[\log_2(n)]$$
 Quindi lo speed-up minimo diventa
 $$\min \text{speed-up}=\dfrac{c_n^{(1)}}{\max c_n^{(2)}} = \dfrac{n-1}{2[\log_2(n)]}$$
 Al crescenere di $n$ si ha che $\min \text{speed-up} \sim \dfrac{n}{2\log_2(n)}$
-Mentre $\max \text{speed-up} \sim \dfrac{n}{\log_2(n)} = \dfrac{2^m}{m}$ che avviene quando $n$ e' una potenza di $2$ come visto all'inizio
+Mentre $\max \text{speed-up} \sim \dfrac{n}{\log_2(n)} = \dfrac{2^m}{m}$ che avviene quando $n$ e' una potenza di $2$ come visto all'inizio.

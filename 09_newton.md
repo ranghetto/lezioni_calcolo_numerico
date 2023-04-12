@@ -8,12 +8,12 @@ $$e_{n+1} \approx \dfrac{1}{2}e_n$$
 non esattamente ad ogni iterazione ma in media su un certo numero di iterazioni.
 
 Ovviamente la stessa proprieta' vale in media per l'errore relativo
-$$r_{n+1} = \dfrac{e_{n+1}}{|\xi|}\approx\dfrac{1}{2}\dfrac{e_n}{|\xi|}\dfrac{1}{2}r_n$$
+$$r_{n+1} = \dfrac{e_{n+1}}{|\xi|}\approx\dfrac{1}{2}\dfrac{e_n}{|\xi|} = \dfrac{1}{2}r_n$$
 per $\xi\neq0$; sono quindi necessarie in media 3-4 iterazioni affinche' l'errore relativo scenda di $\dfrac{1}{10}$ (cioe' per guadagnare una cifra decimale corretta), visto che
 $$\dfrac{1}{16} = \Big(\dfrac{1}{2}\Big)^4 \lt \dfrac{1}{10} \lt \Big(\dfrac{1}{2}\Big)^3 = \dfrac{1}{8}$$
 (infatti abbiamo visto che per calcolare $\sqrt{2}$ alla precisione di macchina in Matlab servono una cinquantina di iterazioni e in effetti $\epsilon_M=2^{-53} \approx 10^{-16}$).
 
-In questa lezione introdurremo un metodo molto piu' efficiente per il calcolo di zeri, ovvero il *metodo di Newton*, o *metodo delle tangenti*, che come si capisce dal nome risale agli albori del calcolo differenziale nel $XIIV$ secolo.
+In questa lezione introdurremo un metodo molto piu' efficiente per il calcolo di zeri, ovvero il *metodo di Newton*, o *metodo delle tangenti*, che come si capisce dal nome risale agli albori del calcolo differenziale nel $XVII$ secolo.
 
 La maggiore efficienza avra' un prezzo in termini di richieste analitiche ($f$ almeno derivabile in $[a,b]$) e computazionali (saper calcolare sia $f$ sia $f'$ con buona accuratezza).
 
@@ -53,7 +53,7 @@ Ci sono vari set di condizioni *sufficienti* che garantiscono la convergenza del
  ![[img020.png]]
 
 in $1)$ e $2)$ $f$ e' strettamente convessa, in $3)$ e $4)$ concava, in $1)$ e $3)$ $x_0$ va scelto in $(\xi, b]$, mentre in $2)$ e $4)$ $x_0$ va scelto in $[a, \xi)$.
-Vediamo dai disegni che non e' escluso che $f'$ possa cambiare segno, l'ipotesi chiave e' che non cambi segno $f''$; ovviamente sono compresi i casi in cui $f''$ non cambia segno e anche $f'$ non cambia segno, cioe' ad esempio quando $f$ sstrettamente convessa e strettamente crescente.
+Vediamo dai disegni che non e' escluso che $f'$ possa cambiare segno, l'ipotesi chiave e' che non cambi segno $f''$; ovviamente sono compresi i casi in cui $f''$ non cambia segno e anche $f'$ non cambia segno, cioe' ad esempio quando $f$ strettamente convessa e strettamente crescente.
 Per semplicita' trattiamo solo il caso $1)$ perche' negli altri casi la dimostrazione e' analoga
 
 >**Dimostrazione** (caso $1)$)
@@ -81,7 +81,7 @@ Per semplicita' trattiamo solo il caso $1)$ perche' negli altri casi la dimostra
 \end{array}$$
 > dove abbiamo usato le proprieta' dei limiti e la continuita' di $f$ ed $f'$ (portando il limite "dentro le funzioni").
 > Quindi $\eta = \eta - \dfrac{f(\eta)}{f'(\eta)}=0 \implies f(\eta)=0$
-> Ma allora $\eta = \xi$, perche' nelle ipotesi fatti (teorema degli zeri e $f''$ di segno costante) lo zero e' unico, quindi il metodo di Newton e' ben definito e $\{x_n\}$ converge a $\xi$.
+> Ma allora $\eta = \xi$, perche' nelle ipotesi fatte (teorema degli zeri e $f''$ di segno costante) lo zero e' unico, quindi il metodo di Newton e' ben definito e $\{x_n\}$ converge a $\xi$.
 
 E' il caso di ribadire che quello che abbiamo utilizzato e' uno dei vari set di condizioni sufficienti (ce ne sono altri), con ipotesi tipicamente di tipo "geometrico" (qui segno costante di $f''$ quindi $f$ e' strettametne convessa o concava) che garantiscono una convergenza che possiamo chiamare "globale" (cioe' non e' importante quanto il punto iniziale $x_0$ sia vicino allo zero, purche' sia nella zona giusta dell'intervallo).
 
@@ -122,7 +122,7 @@ Perche' il metodo di Newton e' cosi' veloce? Per capirlo, dobbiamo analizzare l'
 Enunciamo il risultato sul comportamento dell'errore come teorema, che poi dimostreremo.
 
 > **Teorema** (sulla velocita' di convergenza del metodo di Newton)
-> Sia $f\in C^2[a,b]$ e si assuma di essere in ipotesi che garantiscono la convergenza del emtodo di Newton a $\xi \in [a,b]:f(\xi)=0$.
+> Sia $f\in C^2[a,b]$ e si assuma di essere in ipotesi che garantiscono la convergenza del metodo di Newton a $\xi \in [a,b]:f(\xi)=0$.
 > Sia inoltre $\{x_n\}\subset[c,d]\subseteq[a,b]$ con $f'(x)\neq0\;\forall\;x\in[c,d]$
 > Queste ipotesi implicano 
 > $$\implies e_{n+1}\leq c\cdot e^2_n, n\geq0, c=\dfrac{1}{2}\dfrac{M_2}{m_1}$$
@@ -137,7 +137,7 @@ Prima di dimostrare questa disuguaglianza, osserviamo che:
 > $$\underset{=0}{f(\xi)}=f(x_n)+f'(x_n)(\xi-x_n)+\dfrac{f''(z_n)}{2}(\xi - x_n)^2$$
 > dove $z_n \in int(x_n, \xi)\subset[c,d]$, da cui
 > $$-\dfrac{f(x_n)}{f'(x_n)}=\xi-x_n+\dfrac{f''(z_n)}{2f'(x_n)}(\xi-x_n)^2$$
-> Ma dalla definizione del metodo $-\dfrac{f(x_n)}{f'(x_n)}=x_{n+1}-x_n$ che inserito nelal formula di Tayloer porta a 
+> Ma dalla definizione del metodo $-\dfrac{f(x_n)}{f'(x_n)}=x_{n+1}-x_n$ che inserito nella formula di Taylor porta a 
 > $$x_{n+1}-\cancel{x_n}=\xi-\cancel{x_n}+\dfrac{f''(z_n)}{2f'(x_n)}(\xi-x_n)^2$$
 > ovvero mettendo i moduli $e_{n+1} = |x_{n+1}-\xi|=c_n\cdot e_n^2$ con $c_n= \dfrac{1}{2}\dfrac{|f''(z_n)|}{f'(x_n)}$.
 > La successione $\{c_n\}$ e' limitata, infatti $|f''(z_n)| \leq \underset{x\in[c,d]}{\max}|f''(x)| = M_2$, applicando il teorema di Weierstrass sull'$\exists$ di $\max$ e $\min$ assoluti a $|f''(x)|\in C[c,d]$; d'altra parte, applicando lo steso teorema a $|f'(x)|\in C[c,d]$ abbiamo che $m_1 = \underset{x\in[c,d]}{\min}|f'(x)|\gt0$ (perche' $\exists\;\bar{x}: m_1 = |f'(\bar{x})|$ e $f'(\bar{x})\neq0$).
