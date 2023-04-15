@@ -43,7 +43,7 @@ Illustriamo graficamente la costruzione delle iterazioni
 ![[img012.png]]
 
 L'idea e' la seguente: si parte da $[a_0, b_0] = [a,b]$, si calcola il punto medio $x_0 = \dfrac{(a_0+b_0)}{2}$.
-Ora, se $f(x_0)=0$ siamo su uno zero altrimenti, siccome $f(a_0)$ e $f(b_0)$ hanno segno definito, $f(x_0)$ sara' discorde con uno solo dei due e quindi sicuramente ci sara' uno zero in $(a_0, x_0)$ se $f(a_0)f(b_0)\lt0$ altrimenti ci sara' uno zero in $(x_0,b_0)$ visto che $f(x_0)f(b_0)\lt0$, sempre per il teorema degli zeri.
+Ora, se $f(x_0)=0$ siamo su uno zero altrimenti, siccome $f(a_0)$ e $f(b_0)$ hanno segno definito, $f(x_0)$ sara' discorde con uno solo dei due e quindi sicuramente ci sara' uno zero in $(a_0, x_0)$ se $f(a_0)f(x_0)\lt0$ altrimenti ci sara' uno zero in $(x_0,b_0)$ visto che $f(x_0)f(b_0)\lt0$, sempre per il teorema degli zeri.
 Nel primo caso si definisce $a_1=a_0, b_1=x_0$, mentre nel secondo $a_1=x_0, b_1 = b_0$, con la garanzia che $\exists\;\xi \in (a_1, b_1)$ tale che $f(\xi)=0$ visto che $f(a_1)f(b_1)\lt0$.
 
 Il procedimento viene iterato applicando ripetutamente il teorema degli zeri per passare da $[a_n,b_n]$ ad $[a_{n+1}, b_{n+1}]$ in cui uno degli estremi e' diventato il punto medio $x_n = \dfrac{(a_n+b_n)}{2}$ di $[a_n, b_n]$.
